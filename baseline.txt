@@ -1,0 +1,22 @@
+src/hiergen/exceptions.py
+    DOC301: Class `HiergenError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `HiergenProcessingError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `HierGenInvalidCommentFinderError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `HiergenInvalidLineSourceError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `TokenizerError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `UnterminatedQuoteTokenError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `CannotMatchNextTokenError`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `TokenizerAtEndError`: __init__() should not have a docstring; please combine it with the docstring of the class
+--------------------
+src/hiergen/hiergen.py
+    DOC301: Class `LineInfo`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC301: Class `HierGen`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC502: Method `HierGen._get_next_line` has a "Raises" section in the docstring, but there are not "raise" statements in the body
+    DOC502: Method `HierGen.peek` has a "Raises" section in the docstring, but there are not "raise" statements in the body
+--------------------
+src/hiergen/tokenizer.py
+    DOC605: Class `TokenType`: Attribute names match, but type hints in these attributes do not match: Normal, SingleQuote, DoubleQuote, Raw, Unquoted  (Please read https://jsh9.github.io/pydoclint/checking_class_attributes.html on how to correctly document class attributes.)
+    DOC301: Class `Tokenizer`: __init__() should not have a docstring; please combine it with the docstring of the class
+    DOC403: Method `Tokenizer.__iter__` has a "Yields" section in the docstring, but there are no "yield" statements, or the return annotation is not a Generator/Iterator/Iterable. (Or it could be because the function lacks a return annotation.)
+    DOC502: Method `Tokenizer.next` has a "Raises" section in the docstring, but there are not "raise" statements in the body
+--------------------

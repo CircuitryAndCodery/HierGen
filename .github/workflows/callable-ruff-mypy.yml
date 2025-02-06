@@ -1,0 +1,45 @@
+name: (callable) Run ruff, mypy, and pydoclint
+run-name: Run Quality Checks
+
+on:
+  workflow_call:
+
+jobs:
+  run-all-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: uv install
+        uses: astral-sh/setup-uv@v5
+        with:
+          # Install a specific version of uv.
+          version: "0.5.14"
+
+      - name: python
+        run: uv python install 3.13
+
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: install all the dev things
+        run: |
+          uv sync --dev
+
+      - name: ruff-format
+        run: make check-ruff-format
+
+      - name: ruff-check
+        run: make check-ruff-check
+
+      - name: pydoclint
+        run: make check-pydoclint
+
+      - name: pytest-cov
+        run: make check-pytest-cov
+
+      - name: artifact logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-logs
+          path: .coverage.json

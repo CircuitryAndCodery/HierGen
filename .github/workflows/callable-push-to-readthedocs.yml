@@ -1,0 +1,23 @@
+name: (callable) Push to readthedocs.io
+run-name: Push to readthedocs.io
+
+on:
+  workflow_call:
+
+jobs:
+  publish-to-readthedocs:
+    name: publish to readthedocs.io
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: fetch the docs
+        uses: actions/download-artifact@v4
+        with:
+          name: readthedocs
+          path: site/
+
+      - name: upload the docs
+        uses: readthedocs/actions/preview@v1
+          with:
+            project-slug: "TODO-fixme"

@@ -1,0 +1,13 @@
+name: (callable) Push Documents
+run-name: Push Documents
+on:
+  - workflow_dispatch
+  - release
+
+jobs:
+  Verify-mkdocs:
+    runs-on: ubuntu-latest
+
+  Push-to-readthedocs_io:
+    needs: Verify-mkdocs
+    runs-on: ubuntu-latest

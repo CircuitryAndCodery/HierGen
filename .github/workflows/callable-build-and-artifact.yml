@@ -1,0 +1,55 @@
+name: Run uv build and artifact
+run-name: Run build and artifact
+
+on:
+  workflow_call:
+
+jobs:
+  run-build-then-artifact:
+    name: Build and artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: uv install
+        uses: astral-sh/setup-uv@v5
+        with:
+          # Install a specific version of uv.
+          version: "0.5.14"
+
+      - name: python
+        run: uv python install 3.13
+
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: sync non-dev dependencies
+        run: |
+          uv sync
+
+      - name: build the package
+        run: |
+          uv build
+
+      - name: artifact dist packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+          retention-days: 2
+
+      - name: sync non-dev dependencies
+        run: |
+          uv sync --dev
+
+      - name: build the docs
+        run: |
+          uvx mkdocs
+
+      - name: artifact docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: readthedocs
+          path: site/
+          retention-days: 2
+

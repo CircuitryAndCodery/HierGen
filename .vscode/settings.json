@@ -1,0 +1,18 @@
+{
+    "licenser.author": "Mark Hamann",
+    "python.testing.pytestArgs": [
+        "test"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
+    "files.exclude": {
+        "**/.git": false
+    },
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/on_push.yml"
+    ],
+    "makefile.configureOnOpen": false
+}
