@@ -2,6 +2,24 @@
 
 The code lives at https://github/CircuitryAndCodery/HierGen.git
 
+This repo uses [git flow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+
+All branches must be named with one of the following prefixes:
+
+    * `feature/`
+    * `bugfix/`
+    * `process/`
+    * `test/`
+    * `release/`
+
+Pull requests are typically merged into `develop` but can be merged
+into other branches. Only `feature/*`, `bugfix/*`, and `process/*` branches
+can be merged into `develop`.
+The `test/*` branches can be created but not merged into any branch.
+Only `release/v[0-9]+\.[0-9]+\.[0-9]+` branches can be merged into `main`.
+
+This repo uses rebase merge to merge into `develop`. 
+
 There are 2 ways to contribute but they both start with creating an issue.
 
 Feature requests and bugfixes are the 2 types of issues that I accept. Please create
@@ -16,10 +34,13 @@ Found a bug? Want a feature? Create an bug or feature request issue.
 
 The best way to report a bug is to show:
 
-* indicate the version of the package and the version of python
-* some minimal code that should run
+* indicate:
+    * the version of the package
+    * the version of python
+    * the name and version of the operating system
+* some minimal code that is expected to run correctly
 * what the expected result is
-* what the actual result is
+* what the actual result is--include any error messages
 
 ## As a Developer
 

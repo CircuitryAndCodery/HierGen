@@ -1,9 +1,8 @@
-name: On Push Actions
-run-name: On Push Actions
+name: On Push Branch
+run-name: On Push Branch
 
 on:
   workflow_dispatch:
-  pull_request:
   push:
     branches:
           - '**'
