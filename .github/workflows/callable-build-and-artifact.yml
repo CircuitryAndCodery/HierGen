@@ -1,4 +1,4 @@
-name: Run uv build and artifact
+name: (callable) Run uv build and artifact
 run-name: Run build and artifact
 
 on:

@@ -14,5 +14,4 @@ site/
 .venv
 
 # have a lower level .gitignore but grey out in vscode
-.mypy_cache/
-.ruff_cache/
+.*_cache/
