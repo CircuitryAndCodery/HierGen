@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: '**'
-    tags: '*'
+    tags: 'test*'
   pull_request:
 
 jobs:
