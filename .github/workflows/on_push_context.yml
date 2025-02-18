@@ -4,8 +4,8 @@ run-name: On Push show context
 on:
   workflow_dispatch:
   push:
-    branches: '**'
-    tags: 'test*'
+    tags:
+      - 'test*'
   pull_request:
 
 jobs:
