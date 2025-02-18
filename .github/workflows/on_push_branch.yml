@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-          - '**'
+      - '**'
 jobs:
   print-context:
     runs-on: ubuntu-latest
