@@ -13,9 +13,13 @@ jobs:
 
   pypi:
     needs: build
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
     uses: ./.github/workflows/callable-push-to-pypi.yml
 
   readthedocs:
     needs: build
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
     uses: ./.github/workflows/callable-push-to-readthedocs.yml
 
