@@ -17,7 +17,7 @@ jobs:
         run: echo '${{ toJSON(env) }}'
 
   quality-tests:
-    needs: print-github-context
+    needs: print-context
     uses: ./.github/workflows/callable-ruff-mypy.yml
 
   buildable-check:
