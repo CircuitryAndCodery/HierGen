@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo github context
-        run: echo ${{ toJSON(github) }}
+        run: echo '${{ toJSON(github) }}'
 
       - name: echo env context
-        run: echo ${{ toJSON(env) }}
+        run: echo '${{ toJSON(env) }}'
 
   quality-tests:
+    needs: print-github-context
     uses: ./.github/workflows/callable-ruff-mypy.yml
 
   buildable-check:
