@@ -7,9 +7,6 @@ on:
     tags:
       - 'v*\.*\.*'
 
-permissions:
-  id-token: write  # IMPORTANT: mandatory for trusted publishing
-  
 jobs:
   build:
     uses: ./.github/workflows/callable-build-and-artifact.yml
@@ -19,10 +16,12 @@ jobs:
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     uses: ./.github/workflows/callable-push-to-pypi.yml
+    secrets: inherit
 
   readthedocs:
     needs: build
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     uses: ./.github/workflows/callable-push-to-readthedocs.yml
+    secrets: inherit
 
