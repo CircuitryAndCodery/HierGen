@@ -1,0 +1,30 @@
+name: On Push Tag to main
+run-name: On Push tag to main
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*\.*\.*'
+
+jobs:
+  print-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo github context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: echo env context
+        run: echo '${{ toJSON(env) }}'
+
+  build:
+    uses: ./.github/workflows/callable-build-and-artifact.yml
+
+  pypi:
+    needs: build
+    uses: ./.github/workflows/callable-push-to-pypi.yml
+
+  readthedocs:
+    needs: build
+    uses: ./.github/workflows/callable-push-to-readthedocs.yml
+
