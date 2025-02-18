@@ -7,6 +7,15 @@ on:
     branches:
           - '**'
 jobs:
+  print-github-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo github context
+        run: echo ${{ toJSON(github) }}
+
+      - name: echo env context
+        run: echo ${{ toJSON(env) }}
+
   quality-tests:
     uses: ./.github/workflows/callable-ruff-mypy.yml
 

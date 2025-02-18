@@ -1,4 +1,4 @@
-name: On PR release/* -> main
+name: On PR release/* -> develop
 run-name: On Push Release
 
 on:
