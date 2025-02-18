@@ -8,15 +8,6 @@ on:
       - 'v*\.*\.*'
 
 jobs:
-  print-context:
-    runs-on: ubuntu-latest
-    steps:
-      - name: echo github context
-        run: echo '${{ toJSON(github) }}'
-
-      - name: echo env context
-        run: echo '${{ toJSON(env) }}'
-
   build:
     uses: ./.github/workflows/callable-build-and-artifact.yml
 
