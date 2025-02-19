@@ -44,7 +44,7 @@ jobs:
 
       - name: build the docs
         run: |
-          uvx mkdocs
+          make build-docs
 
       - name: artifact docs
         uses: actions/upload-artifact@v4

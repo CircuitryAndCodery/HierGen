@@ -20,4 +20,4 @@ jobs:
       - name: upload the docs
         uses: readthedocs/actions/preview@v1
         with:
-          project-slug: "TODO-fixme"
+          project-slug: "hiergen.readthedocs.io"
