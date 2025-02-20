@@ -41,11 +41,11 @@ jobs:
   #   uses: ./.github/workflows/callable-push-to-pypi.yml
   #   secrets: inherit
 
-  # readthedocs:
-  #   needs: build
-  #   permissions:
-  #     #id-token: write  # IMPORTANT: mandatory for trusted publishing
-  #     pull-requests: write
-  #   uses: ./.github/workflows/callable-push-to-readthedocs.yml
-  #   secrets: inherit
+  readthedocs:
+    needs: build
+    permissions:
+      #id-token: write  # IMPORTANT: mandatory for trusted publishing
+      pull-requests: write
+    uses: ./.github/workflows/callable-push-to-readthedocs.yml
+    secrets: inherit
 
