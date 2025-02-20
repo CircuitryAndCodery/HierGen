@@ -11,7 +11,7 @@ build:
     python: "3.13"
   jobs:
     install:
-      - pip install --dependency-groups=docs
+      - pip install .[docs]
 
 mkdocs:
   configuration: mkdocs.yml
