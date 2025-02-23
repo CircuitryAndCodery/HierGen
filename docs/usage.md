@@ -44,18 +44,18 @@ errors to be located quickly.
 === "input.py"
 
     ``` py linenums="1" title="A string of hierachical data "
-        STRING = """
-        USA
-            Washington
-                Seattle
-            Wisconsin
-                Madison
-        Canada
-            British Columbia
-                Vancouver
-            Alberta
-                Calgary
-        """.strip()
+    STRING = """
+    USA
+        Washington
+            Seattle
+        Wisconsin
+            Madison
+    Canada
+        British Columbia
+            Vancouver
+        Alberta
+            Calgary
+    """.strip()
     ```
 
 === "code.py"
@@ -163,30 +163,30 @@ The methods of `Tokenizer` are:
 
 === "code.py"
     ``` py linenums="1" title="Process Children"
-        from pathlib import Path
-        from hiergen import HierGen
+    from pathlib import Path
+    from hiergen import HierGen
 
-        def process(hg: HierGen, depth: int = 0):
-            for line_info in hg:
-                print(f"At {depth=}, {line_info.line_no}: {line_info.content}")
-                process(line_info.children, depth + 1)
+    def process(hg: HierGen, depth: int = 0):
+        for line_info in hg:
+            print(f"At {depth=}, {line_info.line_no}: {line_info.content}")
+            process(line_info.children, depth + 1)
 
-        hg = HierGen.from_any(Path("cities.txt"))  # (1)!
-        process(hg)
+    hg = HierGen.from_any(Path("cities.txt"))  # (1)!
+    process(hg)
     ```
 
 === "stdout"
     ```
-        At depth=0, 1: USA
-        At depth=1, 2: Washington
-        At depth=2, 3: Seattle
-        At depth=1, 4: Wisconsin
-        At depth=2, 5: Madison
-        At depth=0, 6: Canada
-        At depth=1, 7: British Columbia
-        At depth=2, 8: Vancouver
-        At depth=1, 9: Alberta
-        At depth=2, 10: Calgary
+    At depth=0, 1: USA
+    At depth=1, 2: Washington
+    At depth=2, 3: Seattle
+    At depth=1, 4: Wisconsin
+    At depth=2, 5: Madison
+    At depth=0, 6: Canada
+    At depth=1, 7: British Columbia
+    At depth=2, 8: Vancouver
+    At depth=1, 9: Alberta
+    At depth=2, 10: Calgary
     ```
 
 ### Handling Comments
