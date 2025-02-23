@@ -1,24 +1,6 @@
 # How to Contribute
 
-The code lives at https://github/CircuitryAndCodery/HierGen.git
-
-This repo uses [git flow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
-
-All branches must be named with one of the following prefixes:
-
-    * `feature/`
-    * `bugfix/`
-    * `process/`
-    * `test/`
-    * `release/`
-
-Pull requests are typically merged into `develop` but can be merged
-into other branches. Only `feature/*`, `bugfix/*`, and `process/*` branches
-can be merged into `develop`.
-The `test/*` branches can be created but not merged into any branch.
-Only `release/v[0-9]+\.[0-9]+\.[0-9]+` branches can be merged into `main`.
-
-This repo uses rebase merge to merge into `develop`. 
+The code lives at https://github/CircuitryAndCodery/HierGen
 
 There are 2 ways to contribute but they both start with creating an issue.
 
@@ -47,6 +29,24 @@ The best way to report a bug is to show:
 Is there a bug or issue you would like to work on? Clone the repo, fix or implement it
 and start a pull request. Ensure that you write tests that adequately test the new code. Use the coverage tool to either ensure 100% coverage or explain why it's not 100% (e.g. there is normally unreachable code that asserts or raises a developer exception). Also ensure that the documentation is adjusted accordingly. This includes docstrings and
 the user documentation.
+
+This repo uses [git flow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+
+All branches must be named with one of the following prefixes:
+
+    * `feature/`
+    * `bugfix/`
+    * `process/`
+    * `test/`
+    * `release/`
+
+Pull requests are typically merged into `develop` but can be merged
+into other branches. Only `feature/*`, `bugfix/*`, and `process/*` branches
+can be merged into `develop`.
+The `test/*` branches can be created but not merged into any branch.
+Only `release/v[0-9]+\.[0-9]+\.[0-9]+` branches can be merged into `main`.
+
+This repo uses rebase merge to merge into `develop`.
 
 ### Breaking Changes and Deprecation
 

@@ -44,25 +44,25 @@ errors to be located quickly.
 === "input.py"
 
     ``` py linenums="1" title="A string of hierachical data "
-    STRING = """
-    USA
-        Washington
-            Seattle
-        Wisconsin
-            Madison
-    Canada
-        British Columbia
-            Vancouver
-        Alberta
-            Calgary
-    """
+        STRING = """
+        USA
+            Washington
+                Seattle
+            Wisconsin
+                Madison
+        Canada
+            British Columbia
+                Vancouver
+            Alberta
+                Calgary
+        """.strip()
     ```
 
 === "code.py"
 
     ``` py linenums="1" title="Create a HierGenObject"
     from hiergen import HierGen
-    from .input import STRING
+    from input import STRING
 
     hg_STRING = HierGen.from_str_with_newlines(STRING)
 
@@ -129,8 +129,8 @@ The `Tokenizer` has some useful properties:
 * `Tokenizer.cursor` -- get or set the current cursor location
 * `Tokenizer.source` -- get the source_name from `LineInfo` (or filename if using a file)
 * `Tokenizer.line_no` -- get the 1 based line number from `LineInfo`
-* `Tokenizer.whole_line` -- get the entire line which includes indent, content, and comment
-* `Tokenizer.line_content` -- get just the content part of the line
+* `Tokenizer.line` -- get the entire line which includes indent, content, and comment
+* `Tokenizer.content` -- get just the content part of the line
 * `Tokenizer.start` -- get the index of the first non-indent character
 * `Tokenizer.end` -- get the index of the first comment character or the end of the line
 * `Tokenizer.remaining` -- get the string that goes from the `.cursor` to the `.end`
@@ -163,28 +163,31 @@ The methods of `Tokenizer` are:
 
 === "code.py"
     ``` py linenums="1" title="Process Children"
-    from hiergen import HierGen
+        from pathlib import Path
+        from hiergen import HierGen
 
-    def proc_countries(hg: HierGen):
-        for li in hg:
-            country = li.line_content
-            proc_state(country, li.children)
+        def process(hg: HierGen, depth: int = 0):
+            for line_info in hg:
+                print(f"At {depth=}, {line_info.line_no}: {line_info.content}")
+                process(line_info.children, depth + 1)
 
-    def proc_state(country: str, states: HierGen):
-        for li in states:
-            state = li.line_content
-            proc_city(country, state, li.children)
-
-    def proc_city(country: str, state: str, states: HierGen):
-        for li in states:
-        city = li.line_content
-            print(f"{city}, {state}  ({country})")
-
-    hg = HierGen.from_text_file("cities.txt")
-    proc_countries(hg)
+        hg = HierGen.from_any(Path("cities.txt"))  # (1)!
+        process(hg)
     ```
 
-=== "Output"
+=== "stdout"
+    ```
+        At depth=0, 1: USA
+        At depth=1, 2: Washington
+        At depth=2, 3: Seattle
+        At depth=1, 4: Wisconsin
+        At depth=2, 5: Madison
+        At depth=0, 6: Canada
+        At depth=1, 7: British Columbia
+        At depth=2, 8: Vancouver
+        At depth=1, 9: Alberta
+        At depth=2, 10: Calgary
+    ```
 
 ### Handling Comments
 
@@ -203,43 +206,37 @@ inline `#`, `;`, and `//`.
 === "Code Example"
 
     ``` py linenums="1" title="Create a HierGenObject"
-    from hiergen import HierGen
+        from hiergen import HierGen, HashtagCommentFinder
 
-    STRING = """
-    USA
-        Washington
-            Seattle  # Not the capital--that is Olympia
-        Wisconsin
-    # Add more cities
-            Madison
-    # Some Canadian cities
-    Canada
-        British Columbia  # Be sure to treat this as a single token
-            Vancouver
-        Alberta
-            Calgary
-    """
-    hg_STRING = HierGen.from_str_with_newlines(STRING)
+        STRING = """
+        USA
+            Washington
+                Seattle  # Not the capital--that is Olympia
+            Wisconsin
+        # Add more cities
+                Madison
+        # Some Canadian cities
+        Canada
+            British Columbia  # Be sure to treat this as a single token
+                Vancouver
+            Alberta
+                Calgary
+        """
+        hg_STRING = HierGen.from_line_with_newlines(STRING, comment_finder=HashtagCommentFinder())
 
-    for country_line in hg_STRING:
-        for state_province_line in country_line.children:
-            for city_line in state_province_line.children:
-                print(lineInfo.line)
+        for country_line in hg_STRING:
+            for state_province_line in country_line.children:
+                for city_line in state_province_line.children:
+                    print(f"{city_line.content}, {state_province_line.content}, {country_line.content},")
     ```
 
 === "Output"
 
     ```
-    USA
-        Washington
-            Seattle
-        Wisconsin
-            Madison
-    Canada
-        British Columbia
-            Vancouver
-        Alberta
-            Calgary
+        Seattle , Washington, USA,
+        Madison, Wisconsin, USA,
+        Vancouver, British Columbia , Canada,
+        Calgary, Alberta, Canada,
     ```
 # Code Documentation
 
