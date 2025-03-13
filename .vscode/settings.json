@@ -8,9 +8,5 @@
     "python.analysis.extraPaths": [
         "./src"
     ],
-    "files.exclude": {
-        "**/.git": false
-    },
-    "github-actions.workflows.pinned.workflows": [],
     "makefile.configureOnOpen": false
 }

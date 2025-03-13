@@ -5,8 +5,16 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'release/**'
+      - 'hotfix/**'
+      - 'test/**'
+      - 'process/**'
+      - 'working/**'
+
 jobs:
+
   quality-tests:
     uses: ./.github/workflows/callable-ruff-mypy.yml
 
@@ -24,14 +32,3 @@ jobs:
     with:
       python-version: ${{ matrix.python-version }}
       os: ${{ matrix.os }}
-
-  # create-release:
-  #   needs: matrix-tests
-  #   if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-  #   uses: ./.github/workflows/callable-build-and-artifact.yml
-
-  # publish-release:
-  #   needs: create-release
-  #   permissions:
-  #     id-token: write  # IMPORTANT: mandatory for trusted publishing
-  #   uses: ./.github/workflows/callable-push-to-pypi.yml

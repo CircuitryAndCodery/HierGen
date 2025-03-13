@@ -65,7 +65,7 @@ check-pre-commit:
 	uvx --python=${PYTHON} pre-commit run --all-files
 
 uv-lock:
-	rm -f uv-lock && uv pip install -e . && sleep 1 && uv lock
+	rm -f uv.lock && uv pip install -e . && uv lock
 
 git-commit-no-verify:
 	git commit --no-verify

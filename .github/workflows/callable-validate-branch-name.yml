@@ -1,0 +1,31 @@
+name: (callable) Run uv build and artifact
+run-name: Run build and artifact
+
+on:
+  workflow_call:
+    inputs:
+      branch-name:
+        type: string
+        required: true
+
+jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: uv install
+        uses: astral-sh/setup-uv@v5
+        with:
+          # Install a specific version of uv.
+          version: "0.5.14"
+
+      - name: python
+        run: uv python install 3.13
+
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Tag vs version.py
+        run: |
+          uv run scripts/validate-branch-name.py ${{ inputs.branch-name }}

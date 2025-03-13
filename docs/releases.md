@@ -1,6 +1,3 @@
 # Releases
 
-## 0.0.1
-
-Initial release
-
+The release notes can be found at: [Release Notes](https://github.com/CircuitryAndCodery/HierGen/blob/develop/README.md#release-notes)

@@ -34,19 +34,36 @@ This repo uses [git flow workflow](https://www.atlassian.com/git/tutorials/compa
 
 All branches must be named with one of the following prefixes:
 
-    * `feature/`
-    * `bugfix/`
-    * `process/`
-    * `test/`
-    * `release/`
+    * `feature/cchg-[issue #]-[short-description]`
+    * `bugfix/cchg-[issue #]-[short-description]`
+    * `process/*`
+    * `test/*`
+    * `release/v[M].[m].[p]`
 
 Pull requests are typically merged into `develop` but can be merged
 into other branches. Only `feature/*`, `bugfix/*`, and `process/*` branches
 can be merged into `develop`.
 The `test/*` branches can be created but not merged into any branch.
-Only `release/v[0-9]+\.[0-9]+\.[0-9]+` branches can be merged into `main`.
+Only `release/[0-9]+\.[0-9]+\.[0-9]+` branches can be merged into `main`.
 
 This repo uses rebase merge to merge into `develop`.
+
+Once the repo is cloned, run:
+
+``` bash
+$ make sync precommit
+```
+
+### Release Process
+
+To make a release, examine the release note lines in README.md that are in the `unreleased` section. These should have an issue followed by major|minor|patch. Find the most severe one to determine the next version, create a section with that version, and copy these to (minus the major|minor|patch) to that section.
+
+Create a branch called `release/{major}.{minor}.{patch}` off develop, bump the version in version.py, and adjust the test/version_test.py. Ensure that all test pass.
+
+Start two pull requests to merge into both `main` and develop.
+
+Once merged, tag the commit in main to `v{major}.{minor}.{patch}` and push the tag. This will push the changes to `pypi` and a stable `readthedocs.io`.
+
 
 ### Breaking Changes and Deprecation
 
@@ -57,3 +74,26 @@ current usage or available features. When creating a pull request, please indica
 change is major, minor or patch level. All `major` changes must be introduced after a
 a new minor change that has a deprecation warning. The time between the minor change with
 the deprecation warning and the major change must be atleast 30 days.
+
+### Pushing a branch
+
+Use the precommit hooks to ensure that the tests all pass. They can
+also be run with:
+
+``` bash
+$ make check-pre-commit
+```
+
+### Starting a Pull Request
+
+Ensure that the README.md `Release Notes` section has a short
+description in the `- unreleased` list. These will be copied to
+a release tag in the release branch. They should be in the format:
+
+```
+# Release Notes
+## unreleased
+  - IssueNumber major|minor|patch Description of change
+## 0.0.3
+  - Initial commit
+```

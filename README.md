@@ -19,7 +19,13 @@ Canada
         Calgary
 ```
 
-## Learn how to use HierGen
+# Learn how to use HierGen
 
-[readthedocs.io](https://readthedocs.io/hiergen)
+[readthedocs.io](https://hiergen.readthedocs.io)
 
+# Release Notes
+
+- unreleased
+
+- v0.0.3
+  - Initial release

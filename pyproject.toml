@@ -114,9 +114,9 @@ baseline = "baseline.txt"
 path = "./version.py"
 
 [tool.hatch.build]
-sources = ["/src"]
-include = [
-  "**/*.py",  
+sources = ["src/"]
+only-include = [
+  "src/hiergen/",
 ]
 exclude = [
   "examples/**",
