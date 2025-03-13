@@ -97,3 +97,27 @@ a release tag in the release branch. They should be in the format:
 ## 0.0.3
   - Initial commit
 ```
+
+## GitHub Actions
+
+This repo uses github actions to validate the code and manage releases.
+
+### On Push Branch
+
+Pushing a branch starts all of the usual tests. They don't need to pass,
+but they can be used to direct further work on the branch. It is, nevertheless
+recommended that the user run `make check-pre-commit` when getting ready to
+push work that is expected to be in good condition.
+
+### On Push Tag
+
+Pushing a tag is generally how releases are made. The tag name is verified by
+ensuring its format and then the major minor patch are compared against the
+__version__.py. If all is well, the push to testpypi and pypi begin.
+
+### On Pull Request
+
+Starting a pull request starts the same tests as pushing a branch if it's
+pushing into develop, a release, or support branch. It also
+ensures that the branch being merged into is not main. It is always
+allowed to do a pull request for merging into a feature or bugfix branch.
