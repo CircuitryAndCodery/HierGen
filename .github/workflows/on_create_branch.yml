@@ -1,0 +1,22 @@
+name: On Create Release Actions
+run-name: On Create Release Actions
+
+on:
+  create:
+
+jobs:
+  do-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check prefix
+        run: |
+          if ( \
+          ! startsWith( ${{ github.ref }}, "process/") && \
+          ! startsWith( ${{ github.ref }}, "feature/") && \
+          ! startsWith( ${{ github.ref }}, "bugfix/") && \
+          ! startsWith( ${{ github.ref }}, "release/") \
+          )
+
+      - name: do release
+        run: |
+          core.setFailed()

@@ -1,0 +1,55 @@
+name: On Push Tag to main
+run-name: On Push tag to main
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  validate-tag:
+    if: github.ref_type == 'tag' && github.event.base_ref == 'refs/heads/main'
+    uses: ./.github/workflows/callable-validate-tag.yml
+    with:
+      tag-name: ${{ github.ref }}
+
+  build:
+    needs: validate-tag
+    uses: ./.github/workflows/callable-build-and-artifact.yml
+
+  test-pypi-local:
+    name: publish to Test PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/hiergen
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Publish distribution to Test PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          #repository-url: https://test.pypi.org/p/hiergen/
+
+  # pypi:
+  #   needs: build
+  #   permissions:
+  #     id-token: write  # IMPORTANT: mandatory for trusted publishing
+  #   uses: ./.github/workflows/callable-push-to-pypi.yml
+  #   secrets: inherit
+
+  readthedocs:
+    needs: build
+    permissions:
+      #id-token: write  # IMPORTANT: mandatory for trusted publishing
+      pull-requests: write
+    uses: ./.github/workflows/callable-push-to-readthedocs.yml
+    secrets: inherit
+

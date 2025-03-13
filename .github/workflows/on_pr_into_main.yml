@@ -1,0 +1,16 @@
+name: On PR release/* -> main
+run-name: On Push Release
+
+on:
+  pull_request: 
+    branches:
+      - 'release/*'
+
+jobs:
+  error-if-not-main:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref != 'main'
+    steps:
+      - name: error-out
+        run: |
+          exit 1

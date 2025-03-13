@@ -1,0 +1,32 @@
+name: (callable) Run uv build check
+run-name: Run build check
+
+on:
+  workflow_call:
+
+jobs:
+  build-with-base-deps:
+    name: Build test
+    runs-on: ubuntu-latest
+    steps:
+      - name: uv install
+        uses: astral-sh/setup-uv@v5
+        with:
+          # Install a specific version of uv.
+          version: "0.5.14"
+
+      - name: python
+        run: uv python install 3.13
+
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: sync non-dev dependencies
+        run: |
+          uv sync
+
+      - name: build the package
+        run: |
+          uv build

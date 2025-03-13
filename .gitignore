@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.coverage*
+
+# Docs. Not checked in for main
+site/
+
+# Virtual environments
+.venv
+
+# have a lower level .gitignore but grey out in vscode
+.*_cache/

@@ -1,0 +1,34 @@
+name: On Push Branch
+run-name: On Push Branch
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'release/**'
+      - 'hotfix/**'
+      - 'test/**'
+      - 'process/**'
+      - 'working/**'
+
+jobs:
+
+  quality-tests:
+    uses: ./.github/workflows/callable-ruff-mypy.yml
+
+  buildable-check:
+    needs: quality-tests
+    uses: ./.github/workflows/callable-build-check.yml
+  
+  matrix-tests:
+    needs: buildable-check
+    strategy:
+      matrix:
+        python-version: [ '3.12', '3.13' ]
+        os: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+    uses: ./.github/workflows/callable-pytest.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+      os: ${{ matrix.os }}

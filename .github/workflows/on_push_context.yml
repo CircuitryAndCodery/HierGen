@@ -1,0 +1,19 @@
+name: On Push show context
+run-name: On Push show context
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'test*'
+  pull_request:
+
+jobs:
+  print-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo github context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: echo env context
+        run: echo '${{ toJSON(env) }}'

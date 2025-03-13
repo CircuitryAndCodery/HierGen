@@ -1,0 +1,21 @@
+name: On Create Release Actions
+run-name: On Create Release Actions
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        required: true
+  
+jobs:
+  do-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: verify tag is valid
+        run: |
+          if [[ ${{ inputs.tag}} ~= "v[0-9]+\.[0-9]+\.[0-9]+" ]]
+
+      - name: do release
+        run: |
+          gh create release --verify-tag ${{ inputs.tag }} 

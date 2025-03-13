@@ -1,0 +1,12 @@
+{
+    "licenser.author": "Mark Hamann",
+    "python.testing.pytestArgs": [
+        "test"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
+    "makefile.configureOnOpen": false
+}

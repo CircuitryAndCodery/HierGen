@@ -1,0 +1,128 @@
+[project]
+name = "hiergen"
+dynamic = ["version"]
+authors = [
+    { name = "Mark Hamann" }
+]
+license = "MIT"
+description = "Hierarchical generators for indented text"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Pre-processors",
+    "Topic :: Text Processing :: General",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "click>=8",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0.1",
+    "mypy>=1.14.1",
+    "pytest>=8.3.4",
+    "ruff>=0.8.4",
+    "pytest-cov>=6.0.0",
+    "pydoclint>=0.6.0",
+]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocstrings[python]>=0.27.0",
+    "mkdocs-material>=9.5.49",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.format]
+indent-style = "space"
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [ "ALL" ]
+ignore = [
+    "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed
+    "COM812",  # ignore because incompatible with formatter
+    "D105",  # Missing docstring in magic method
+    "D107",  # Missing docstring in `__init__`
+    "D203",  # ignored because of D211
+    "D213",  # ignored because of D212
+    "ISC001",  # ignore because incompatible with formatter
+    "PLC0414",  # Import alias does not rename original package
+    "PLR0913",  # Too many arguments in function definition (6 > 5)
+]
+exclude = [
+    "version.py",
+    "pytyped.py",
+
+    # Ignore now then remove as fixed
+    #"examples/*.py",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"test/*" = [
+    "D100",  # Missing docstring in public module
+    "D103",  # Missing docstring in public function
+    "INP001",  # part of an implicit namespace package. Add an `__init__.py`.
+    "N802",  # Function name `use_HierGen` should be lowercase
+    "PLR2004",  # Magic value used in comparison
+    "S101",  # Use of `assert` detected
+]
+"scripts/*" = [
+    "D100", 
+    "D103",
+    "INP001",  # part of an implicit namespace package. Add an `__init__.py`.
+    "T201",  # print detected
+]
+"examples/*" = [
+    "ANN003",  # Missing type annotation for `**kwargs`
+    "D100", 
+    "D101",  # Missing docstring in public class
+    "D102",  # Missing docstring in public method
+    "D103",
+    "INP001",
+    "T201",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+addopts = [
+    "--import-mode=importlib",
+]
+
+# uv tool install --with mkdocstrings[python] mkdocs
+[tool.mkdocs]
+dependencies = [
+    "mkdocstrings[python]>=0.27.0",
+    "mkdocs-material>=9.5.49",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pre-commit]
+
+[tool.pydoclint]
+style = "google"
+baseline = "baseline.txt"
+
+[tool.hatch.version]
+path = "./version.py"
+
+[tool.hatch.build]
+sources = ["src/"]
+only-include = [
+  "src/hiergen/",
+]
+exclude = [
+  "examples/**",
+  "test/**",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
